@@ -26,10 +26,17 @@ This is a learning project built to practice Spring Boot fundamentals beyond bas
 
 ## Roadmap
 
+**Phase 1 — Backend hardening**
 - [ ] Authentication and authorization with Spring Security + JWT
 - [ ] Unit tests (JUnit/Mockito)
 - [ ] Dockerization
+
+**Phase 2 — Frontend**
+- [ ] Frontend client (Angular) consuming this API
+
+**Phase 3 — Deployment & beyond**
 - [ ] AWS deployment
+- [ ] Kafka / microservices exploration
 
 ## Author
 
