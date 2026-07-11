@@ -13,6 +13,13 @@ It allows creating reservations ("rentals") of a specific resource for a given t
 - Clean layered architecture with separate input/output DTOs per operation, never exposing JPA entities directly through the API.
 - Persistence with PostgreSQL.
 
+## API Documentation
+
+The project includes an interactive Swagger UI to explore and test all available endpoints directly from your browser.
+
+Once the application is running, you can access the documentation at:
+`http://localhost:8091/swagger-ui.html`
+
 ## Tech Stack
 
 - Java + Spring Boot
@@ -32,7 +39,7 @@ This is a learning project built to practice Spring Boot fundamentals beyond bas
 - [ ] Dockerization
 
 **Phase 2 — Frontend**
-- [ ] Frontend client (Angular) consuming this API
+- [ ] Frontend client (_Angular_) consuming this API
 
 **Phase 3 — Deployment & beyond**
 - [ ] AWS deployment

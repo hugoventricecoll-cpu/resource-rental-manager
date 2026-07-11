@@ -1,9 +1,6 @@
 package com.HugoVentrice.GestorDeLogistica.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 
@@ -21,6 +18,10 @@ public class Usuario {
 
     @NotBlank
     @Column(nullable = false)
+    private String password;
+
+    @NotBlank
+    @Column(nullable = false)
     private String apellido;
 
     @NotBlank
@@ -31,15 +32,29 @@ public class Usuario {
     @Column(nullable = false)
     private String correo;
 
-    public Usuario(String nombre, String apellido, String correo, String numeroTel) {
+    @NotBlank
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Rol rol;
+
+    public Usuario(String nombre, String apellido, String correo, String numeroTel, String password) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
         this.numeroTel = numeroTel;
+        this.password = password;
     }
 
     public Usuario(){
 
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     public long getId() {
@@ -82,6 +97,13 @@ public class Usuario {
         this.correo = correo;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 
 }
