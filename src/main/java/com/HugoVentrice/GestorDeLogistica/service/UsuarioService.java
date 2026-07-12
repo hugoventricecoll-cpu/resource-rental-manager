@@ -1,10 +1,12 @@
 package com.HugoVentrice.GestorDeLogistica.service;
 
 import com.HugoVentrice.GestorDeLogistica.DTO.UsuarioDTO;
+import com.HugoVentrice.GestorDeLogistica.Security.SecurityConfig;
 import com.HugoVentrice.GestorDeLogistica.model.Alquilacion;
 import com.HugoVentrice.GestorDeLogistica.model.Usuario;
 import com.HugoVentrice.GestorDeLogistica.repository.AlquilacionRepository;
 import com.HugoVentrice.GestorDeLogistica.repository.UsuarioRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,10 +16,13 @@ import java.util.List;
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final AlquilacionRepository alquilacionRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, AlquilacionRepository alquilacionRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository, AlquilacionRepository alquilacionRepository, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.alquilacionRepository = alquilacionRepository;
+
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<UsuarioDTO> getAllUsuarios(){
@@ -32,6 +37,7 @@ public class UsuarioService {
     }
 
     public UsuarioDTO crearUsuario(Usuario usuario){
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         usuarioRepository.save(usuario);
         return new UsuarioDTO(usuario.getNombre(), usuario.getApellido(), usuario.getCorreo());
     }

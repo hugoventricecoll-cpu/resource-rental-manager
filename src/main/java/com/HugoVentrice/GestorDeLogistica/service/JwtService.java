@@ -2,10 +2,12 @@ package com.HugoVentrice.GestorDeLogistica.service;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
 
+@Service
 public class JwtService {
 
     private final SecretKey secretKey = Jwts.SIG.HS256.key().build();

@@ -3,14 +3,13 @@ package com.HugoVentrice.GestorDeLogistica.service;
 import com.HugoVentrice.GestorDeLogistica.Security.UsuarioDetails;
 import com.HugoVentrice.GestorDeLogistica.model.Usuario;
 import com.HugoVentrice.GestorDeLogistica.repository.UsuarioRepository;
-import io.jsonwebtoken.Jwts;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 
-import java.util.Date;
 
-
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UsuarioRepository usuarioRepository;
@@ -22,12 +21,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Usuario usuario1 = usuarioRepository.findByCorreo(username);
+        Usuario usuarioFinal = usuarioRepository.findByCorreo(username);
 
-        if (usuario1 == null){
+        if (usuarioFinal == null){
             throw new UsernameNotFoundException("Usuario '" + username + "' no encontrado en la base de datos");
         }
 
-        return new UsuarioDetails(usuario1);
+        return new UsuarioDetails(usuarioFinal);
     }
 }
