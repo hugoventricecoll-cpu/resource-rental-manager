@@ -18,12 +18,19 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
+
+    /*
+       Para hablar entre la BD y SpringSecurity usamos SI o SI UserDetailsService, NUNCA usamos UsuarioService 'a pelo'.
+       Esto ya que, usas UserDetails para definir para SpringSecurity que es de tu usuario su USERNAME/IDENTIFICADOR y su CONTRASEÑA.
+     */
+
     private final CustomUserDetailsService userDetailsService;
 
     public JwtAuthenticationFilter(JwtService jwtService, CustomUserDetailsService userDetailsService) {
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
     }
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -43,7 +50,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             UserDetails userDetails = userDetailsService.loadUserByUsername(correo);
 
             if (jwtService.isValid(jwt, userDetails)) {
-
+                /*
+                    UsernamePasswordAuthenticationToken es una clase que se extiende de Authentication, y la usamos para poder pasársela a SecurityContextHolder.
+                    Ya que SecurityContextHolder, solo acepta objetos Authentication (o sus herederos).
+                 */
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,

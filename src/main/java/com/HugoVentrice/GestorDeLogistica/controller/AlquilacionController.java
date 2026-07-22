@@ -2,7 +2,6 @@ package com.HugoVentrice.GestorDeLogistica.controller;
 
 import com.HugoVentrice.GestorDeLogistica.DTO.AlquilacionDTO;
 import com.HugoVentrice.GestorDeLogistica.DTO.CrearAlquilacionDTO;
-import com.HugoVentrice.GestorDeLogistica.model.Alquilacion;
 import com.HugoVentrice.GestorDeLogistica.service.AlquilacionService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,6 @@ public class AlquilacionController {
     public AlquilacionController(AlquilacionService alquilacionService){
         this.alquilacionService = alquilacionService;
     }
-
 
     @GetMapping
     public List<AlquilacionDTO> getAllAlquilaciones(){
