@@ -2,6 +2,7 @@ package com.HugoVentrice.GestorDeLogistica.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 
 @Entity
@@ -32,17 +33,18 @@ public class Usuario {
     @Column(nullable = false)
     private String correo;
 
-    @NotBlank
+    @NotNull
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
-    public Usuario(String nombre, String apellido, String correo, String numeroTel, String password) {
+    public Usuario(String nombre, String apellido, String correo, String numeroTel, String password, Rol rol) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
         this.numeroTel = numeroTel;
         this.password = password;
+        this.rol = rol;
     }
 
     public Usuario(){
