@@ -16,13 +16,10 @@ import java.util.List;
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final AlquilacionRepository alquilacionRepository;
-    private final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, AlquilacionRepository alquilacionRepository, PasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository usuarioRepository, AlquilacionRepository alquilacionRepository) {
         this.usuarioRepository = usuarioRepository;
         this.alquilacionRepository = alquilacionRepository;
-
-        this.passwordEncoder = passwordEncoder;
     }
 
     public List<UsuarioDTO> getAllUsuarios(){
@@ -34,12 +31,6 @@ public class UsuarioService {
         }
 
         return listaDeUsuariosDTO;
-    }
-
-    public UsuarioDTO crearUsuario(Usuario usuario){
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-        usuarioRepository.save(usuario);
-        return new UsuarioDTO(usuario.getNombre(), usuario.getApellido(), usuario.getCorreo());
     }
 
     public void borrarUsuario(long id){

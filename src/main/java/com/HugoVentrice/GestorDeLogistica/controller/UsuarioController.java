@@ -25,12 +25,6 @@ public class UsuarioController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping
-    public UsuarioDTO crearUsuario(@RequestBody Usuario usuario){
-        return usuarioService.crearUsuario(usuario);
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void eliminarUsuario(@PathVariable long id){
         usuarioService.borrarUsuario(id);
