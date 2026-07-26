@@ -1,9 +1,9 @@
 package com.HugoVentrice.GestorDeLogistica.service;
 
 import com.HugoVentrice.GestorDeLogistica.DTO.UsuarioDTO;
-import com.HugoVentrice.GestorDeLogistica.model.Rol;
 import com.HugoVentrice.GestorDeLogistica.model.Usuario;
 import com.HugoVentrice.GestorDeLogistica.repository.UsuarioRepository;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,7 +12,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,7 +43,7 @@ public class UsuarioServiceTest {
     Mock lo usamos en la "cosa" que obviamos que funciona,
     es decir Mockeamos las dependencias de la clase que queremos probar.
          (ej: si queremos probar usuarioService, obviamos que UsuarioRepository funciona, asi que creamos uno falso un "mock" vacío,
-          para que nosotros nos "inventemos" que hace cada método).
+          para que nosotros nos "inventemos" que hace cada métodо).
 
     Ya que si usásemos @InjectMocks con todas las cosas (que se PUEDE, excepto con interfaces/objetos que no sean clases)
     tendrías que también añadir su SUBCAPA... ¡Superineficiente!
@@ -71,6 +70,7 @@ public class UsuarioServiceTest {
          el métodо que pruebo usa lo que le devuelve el repositorio para producir un resultado? -> entonces when + assertThat sobre ese resultado
          o simplemente le pasa datos al repositorio sin esperar nada de vuelta? -> entonces verify
          */
+        
         Mockito.verify(usuarioRepository).deleteById(user.getId());
     }
 

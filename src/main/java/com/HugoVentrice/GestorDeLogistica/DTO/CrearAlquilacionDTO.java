@@ -12,9 +12,7 @@ public class CrearAlquilacionDTO {
     private LocalDateTime fechaFin;
 
     public CrearAlquilacionDTO(){
-
     }
-
 
     public CrearAlquilacionDTO(Long productoId, Long usuarioId, List<Long> personalIds, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
         this.productoId = productoId;
