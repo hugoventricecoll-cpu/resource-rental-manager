@@ -20,6 +20,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 public class UsuarioServiceTest {
 
+    static Usuario user = new Usuario();
+    static {
+        user.setId(99999999);
+        user.setNombre("Miguel");
+        user.setApellido("Garcia");
+        user.setCorreo("MuiguelGarcia@test.com");
+        user.setNumeroTel("111222333444");
+        user.setPassword("1234");
+    }
+
     @Mock // Una clase falsa, VACÍA, es solo para que el programa no suelte errores
     private UsuarioRepository usuarioRepository;
 
@@ -44,14 +54,6 @@ public class UsuarioServiceTest {
     @Test
     void getAllUsuarios(){
 
-        Usuario user = new Usuario();
-        user.setNombre("Miguel");
-        user.setApellido("Garcia");
-        user.setCorreo("MuiguelGarcia@test.com");
-        user.setNumeroTel("111222333444");
-        user.setPassword("1234");
-        user.setRol(Rol.USER);
-
         List<Usuario> listaUsuarios = List.of(user);
 
         Mockito.when(usuarioRepository.findAll()).thenReturn(listaUsuarios);
@@ -61,5 +63,15 @@ public class UsuarioServiceTest {
         assertThat(resultado).isNotEmpty();
     }
 
+    @Test
+    void borrarUsuario(){
+        usuarioService.borrarUsuario(user.getId());
+
+        /*
+         el métodо que pruebo usa lo que le devuelve el repositorio para producir un resultado? -> entonces when + assertThat sobre ese resultado
+         o simplemente le pasa datos al repositorio sin esperar nada de vuelta? -> entonces verify
+         */
+        Mockito.verify(usuarioRepository).deleteById(user.getId());
+    }
 
 }
