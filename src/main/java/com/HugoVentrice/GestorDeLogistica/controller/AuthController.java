@@ -2,7 +2,6 @@ package com.HugoVentrice.GestorDeLogistica.controller;
 
 import com.HugoVentrice.GestorDeLogistica.DTO.LoginRequestDTO;
 import com.HugoVentrice.GestorDeLogistica.DTO.RegisterDTO;
-import com.HugoVentrice.GestorDeLogistica.DTO.UsuarioDTO;
 import com.HugoVentrice.GestorDeLogistica.service.AuthService;
 import org.springframework.web.bind.annotation.*;
 

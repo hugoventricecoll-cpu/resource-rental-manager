@@ -2,6 +2,7 @@ package com.HugoVentrice.GestorDeLogistica.service;
 
 import com.HugoVentrice.GestorDeLogistica.DTO.UsuarioDTO;
 import com.HugoVentrice.GestorDeLogistica.model.Usuario;
+import com.HugoVentrice.GestorDeLogistica.repository.AlquilacionRepository;
 import com.HugoVentrice.GestorDeLogistica.repository.UsuarioRepository;
 
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UsuarioServiceTest {
 
     static Usuario user = new Usuario();
+
     static {
         user.setId(99999999);
         user.setNombre("Miguel");
@@ -37,6 +41,9 @@ public class UsuarioServiceTest {
 
     @Mock
     private PasswordEncoder passwordEncoder;
+
+    @Mock
+    private AlquilacionRepository alquilacionRepository;
 
     /*
 
@@ -64,14 +71,15 @@ public class UsuarioServiceTest {
 
     @Test
     void borrarUsuario(){
+        Mockito.when(usuarioRepository.findById(user.getId())).thenReturn(Optional.ofNullable(user));
+
         usuarioService.borrarUsuario(user.getId());
 
         /*
          el métodо que pruebo usa lo que le devuelve el repositorio para producir un resultado? -> entonces when + assertThat sobre ese resultado
          o simplemente le pasa datos al repositorio sin esperar nada de vuelta? -> entonces verify
          */
-        
+
         Mockito.verify(usuarioRepository).deleteById(user.getId());
     }
-
 }

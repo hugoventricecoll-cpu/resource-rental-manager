@@ -101,5 +101,4 @@ public class AlquilacionServiceTest {
         assertThat(resultado).isNotNull();
         Mockito.verify(alquilacionRepository).save(Mockito.any(Alquilacion.class));
     }
-
 }
