@@ -63,7 +63,7 @@ Future improvements will focus on testing, containerization, cloud deployment, a
 
 ### Phase 1 — Backend hardening
 
-- [x] Authentication and authorization with Spring Security + JWT
+- [ ] Authentication and authorization with Spring Security + JWT
 - [ ] Unit tests (JUnit/Mockito)
 - [ ] Dockerization
 

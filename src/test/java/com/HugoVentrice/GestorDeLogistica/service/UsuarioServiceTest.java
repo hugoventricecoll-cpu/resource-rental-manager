@@ -1,6 +1,7 @@
 package com.HugoVentrice.GestorDeLogistica.service;
 
 import com.HugoVentrice.GestorDeLogistica.DTO.UsuarioDTO;
+import com.HugoVentrice.GestorDeLogistica.model.Rol;
 import com.HugoVentrice.GestorDeLogistica.model.Usuario;
 import com.HugoVentrice.GestorDeLogistica.repository.AlquilacionRepository;
 import com.HugoVentrice.GestorDeLogistica.repository.UsuarioRepository;
@@ -82,4 +83,18 @@ public class UsuarioServiceTest {
 
         Mockito.verify(usuarioRepository).deleteById(user.getId());
     }
+
+    @Test
+    void actualizarUsuario(){
+        Usuario usuario = new Usuario("juan","guarnizo","juanguarnizo@gmail.com", "130495", "pwd123", Rol.USER);
+
+        Mockito.when(usuarioRepository.findById(user.getId())).thenReturn(Optional.ofNullable(user));
+        Mockito.when(usuarioRepository.save(user)).thenReturn(usuario);
+
+        usuarioService.actualizarUsuario(usuario, user.getId());
+
+        Mockito.verify(usuarioRepository).save(user);
+        assertThat(user.getNombre()).matches("juan");
+    }
+
 }

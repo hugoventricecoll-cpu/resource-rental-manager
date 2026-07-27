@@ -15,13 +15,16 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+
 
 @ExtendWith(MockitoExtension.class)
 public class AlquilacionServiceTest {
@@ -38,6 +41,7 @@ public class AlquilacionServiceTest {
     private PersonalRepository personalRepository;
 
     private Alquilacion alquilacionDePrueba;
+    private Alquilacion alquilacionQueSolapa;
 
     @BeforeEach
     void setUp() {
@@ -58,6 +62,14 @@ public class AlquilacionServiceTest {
         alquilacionDePrueba.setFechaInicio(LocalDateTime.of(2026, 8, 10, 10, 0));
         alquilacionDePrueba.setFechaFin(LocalDateTime.of(2026, 8, 15, 18, 0));
         alquilacionDePrueba.setPersonal(new ArrayList<>());
+
+        alquilacionQueSolapa = new Alquilacion();
+        alquilacionQueSolapa.setId(2L);
+        alquilacionQueSolapa.setProducto(sala);
+        alquilacionQueSolapa.setUsuario(usuario);
+        alquilacionQueSolapa.setFechaInicio(LocalDateTime.of(2026, 8, 11, 10, 0));
+        alquilacionQueSolapa.setFechaFin(LocalDateTime.of(2026, 8, 14, 18, 0));
+        alquilacionQueSolapa.setPersonal(new ArrayList<>());
     }
 
     @Test
@@ -75,7 +87,6 @@ public class AlquilacionServiceTest {
 
     @Test
     void crearAlquilacion(){
-
         CrearAlquilacionDTO dto = new CrearAlquilacionDTO();
         dto.setFechaFin(alquilacionDePrueba.getFechaFin());
         dto.setFechaInicio(alquilacionDePrueba.getFechaInicio());
@@ -101,4 +112,28 @@ public class AlquilacionServiceTest {
         assertThat(resultado).isNotNull();
         Mockito.verify(alquilacionRepository).save(Mockito.any(Alquilacion.class));
     }
+
+    @Test
+    void crearAlquilacion_conSolapamiento_lanzaExcepcion() {
+        CrearAlquilacionDTO dto = new CrearAlquilacionDTO();
+        dto.setFechaFin(alquilacionDePrueba.getFechaFin());
+        dto.setFechaInicio(alquilacionDePrueba.getFechaInicio());
+        dto.setProductoId(alquilacionDePrueba.getProducto().getId());
+        dto.setUsuarioId(alquilacionDePrueba.getUsuario().getId());
+        dto.setPersonalIds(new ArrayList<>());
+
+        Mockito.when(productoRepository.findById(dto.getProductoId()))
+                .thenReturn(Optional.of(alquilacionDePrueba.getProducto()));
+        Mockito.when(usuarioRepository.findById(dto.getUsuarioId()))
+                .thenReturn(Optional.of(alquilacionDePrueba.getUsuario()));
+        Mockito.when(alquilacionRepository.findByProducto(alquilacionDePrueba.getProducto()))
+                .thenReturn(List.of(alquilacionQueSolapa));
+
+        RuntimeException ex = assertThrows(RuntimeException.class, () -> {
+            alquilacionService.crearAlquilacion(dto);
+        });
+
+        assertThat(ex.getMessage()).isEqualTo("Hay solapación con otra alquilación");
+    }
+
 }
