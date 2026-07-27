@@ -33,9 +33,10 @@ The API is secured using Spring Security and JSON Web Tokens (JWT).
 
 Unit tests written with JUnit 5 and Mockito, covering the services with the most relevant business logic:
 
-- `UsuarioService` — full CRUD
-- `AlquilacionService` — including date overlap validation
-- `PersonalService` — full CRUD
+- `UsuarioService` full CRUD
+- `AlquilacionService` including date overlap validation
+- `PersonalService` read and create (getAllPersonal & addPersonal)
+  
 
 Coverage is intentionally focused on business logic and validations rather than exhaustive testing of every controller/service.
 
