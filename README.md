@@ -29,6 +29,16 @@ http://localhost:8091/swagger-ui.html
 
 The API is secured using Spring Security and JSON Web Tokens (JWT).
 
+## Testing
+
+Unit tests written with JUnit 5 and Mockito, covering the services with the most relevant business logic:
+
+- `UsuarioService` — full CRUD
+- `AlquilacionService` — including date overlap validation
+- `PersonalService` — full CRUD
+
+Coverage is intentionally focused on business logic and validations rather than exhaustive testing of every controller/service.
+
 ### Authentication flow
 
 1. Register a new user.
@@ -55,16 +65,16 @@ Protected endpoints require a valid JWT.
 
 ## Project Status
 
-This project started as a Spring Boot learning project and has evolved into a complete backend application featuring authentication, authorization, layered architecture, DTOs, business validations, and database persistence.
+This project started as a Spring Boot learning project and has evolved into a complete backend application featuring authentication, authorization, layered architecture, DTOs, business validations, database persistence, and unit testing.
 
-Future improvements will focus on testing, containerization, cloud deployment, and distributed systems.
+Future improvements will focus on containerization, cloud deployment, and distributed systems.
 
 ## Roadmap
 
 ### Phase 1 — Backend hardening
 
-- [ ] Authentication and authorization with Spring Security + JWT
-- [ ] Unit tests (JUnit/Mockito)
+- [X] Authentication and authorization with Spring Security + JWT
+- [X] Unit tests (JUnit/Mockito)
 - [ ] Dockerization
 
 ### Phase 2 — Frontend
