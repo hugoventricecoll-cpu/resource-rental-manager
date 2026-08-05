@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e1dffc41-217b-4e13-83cc-0775f43d96e6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/DTO/AlquilacionDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/DTO/CrearAlquilacionDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/DTO/LoginRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/DTO/PersonalDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/DTO/ProductoDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/DTO/RegisterDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/DTO/SalaDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/DTO/UsuarioDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/DTO/VehiculoDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/GestorDeLogisticaApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/Security/JwtAuthenticationFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/Security/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/Security/UsuarioDetails.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/controller/AlquilacionController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/controller/AuthController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/controller/PersonalController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/controller/SalaController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/controller/UsuarioController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/controller/VehiculoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/model/Alquilacion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/model/Personal.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/model/Producto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/model/Rol.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/model/Sala.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/model/Tipo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/model/Usuario.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/model/Vehiculo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/repository/AlquilacionRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/repository/PersonalRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/repository/ProductoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/repository/SalaRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/repository/UsuarioRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/repository/VehiculoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/service/AlquilacionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/service/AuthService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/service/JwtService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/service/PersonalService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/service/ProductoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/service/SalaService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/service/UserDetailsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/service/UsuarioService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/service/VehiculoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/HugoVentrice/GestorDeLogistica/GestorDeLogisticaApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/HugoVentrice/GestorDeLogistica/service/AlquilacionServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/HugoVentrice/GestorDeLogistica/service/PersonalServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/HugoVentrice/GestorDeLogistica/service/UsuarioServiceTest.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Exception" />
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;hugoventricecoll-cpu&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/hugoventricecoll-cpu/resource-rental-manager.git&quot;,
+    &quot;accountId&quot;: &quot;374a7a9b-aae8-4a48-981b-b08809c5d93f&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/HugoVentrice/GestorDeLogistica/service/AlquilacionService.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="3Fv7QdYzbGB5sGEQre1tsgtNU5b" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.GestorDeLogisticaApplication.executor": "Run",
+    "JUnit.AlquilacionServiceTest.crearAlquilacion.executor": "Run",
+    "JUnit.AlquilacionServiceTest.crearAlquilacion_conSolapamiento_lanzaExcepcion.executor": "Run",
+    "JUnit.AlquilacionServiceTest.executor": "Run",
+    "JUnit.AlquilacionServiceTest.findAll.executor": "Run",
+    "JUnit.GestorDeLogisticaApplicationTests.contextLoads.executor": "Run",
+    "JUnit.PersonalServiceTest.addPersonal.executor": "Run",
+    "JUnit.PersonalServiceTest.executor": "Run",
+    "JUnit.PersonalServiceTest.getAllPersonalTest.executor": "Run",
+    "JUnit.UsuarioServiceTest.actualizarUsuario.executor": "Run",
+    "JUnit.UsuarioServiceTest.borrarUsuario.executor": "Run",
+    "JUnit.UsuarioServiceTest.crearUsuario.executor": "Run",
+    "JUnit.UsuarioServiceTest.executor": "Run",
+    "JUnit.UsuarioServiceTest.getAllUsuarios.executor": "Run",
+    "Maven.GestorDeLogistica [clean].executor": "Run",
+    "Maven.GestorDeLogistica [install].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/skins/GestorDeLogistica",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="RunManager" selected="Application.GestorDeLogisticaApplication">
+    <configuration name="GestorDeLogisticaApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.HugoVentrice.GestorDeLogistica.GestorDeLogisticaApplication" />
+      <module name="GestorDeLogistica" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.HugoVentrice.GestorDeLogistica.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AlquilacionServiceTest.crearAlquilacion_conSolapamiento_lanzaExcepcion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GestorDeLogistica" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.HugoVentrice.GestorDeLogistica.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.HugoVentrice.GestorDeLogistica.service" />
+      <option name="MAIN_CLASS_NAME" value="com.HugoVentrice.GestorDeLogistica.service.AlquilacionServiceTest" />
+      <option name="METHOD_NAME" value="crearAlquilacion_conSolapamiento_lanzaExcepcion" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersonalServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GestorDeLogistica" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.HugoVentrice.GestorDeLogistica.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.HugoVentrice.GestorDeLogistica.service" />
+      <option name="MAIN_CLASS_NAME" value="com.HugoVentrice.GestorDeLogistica.service.PersonalServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersonalServiceTest.addPersonal" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GestorDeLogistica" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.HugoVentrice.GestorDeLogistica.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.HugoVentrice.GestorDeLogistica.service" />
+      <option name="MAIN_CLASS_NAME" value="com.HugoVentrice.GestorDeLogistica.service.PersonalServiceTest" />
+      <option name="METHOD_NAME" value="addPersonal" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersonalServiceTest.getAllPersonalTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GestorDeLogistica" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.HugoVentrice.GestorDeLogistica.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.HugoVentrice.GestorDeLogistica.service" />
+      <option name="MAIN_CLASS_NAME" value="com.HugoVentrice.GestorDeLogistica.service.PersonalServiceTest" />
+      <option name="METHOD_NAME" value="getAllPersonalTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.GestorDeLogisticaApplication" />
+        <item itemvalue="JUnit.PersonalServiceTest" />
+        <item itemvalue="JUnit.PersonalServiceTest.getAllPersonalTest" />
+        <item itemvalue="JUnit.PersonalServiceTest.addPersonal" />
+        <item itemvalue="JUnit.AlquilacionServiceTest.crearAlquilacion_conSolapamiento_lanzaExcepcion" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e1dffc41-217b-4e13-83cc-0775f43d96e6" name="Changes" comment="" />
+      <created>1782943673525</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1782943673525</updated>
+    </task>
+    <servers />
+  </component>
+</project>
