@@ -1,6 +1,6 @@
 package com.HugoVentrice.GestorDeLogistica.model;
 
-import com.HugoVentrice.GestorDeLogistica.DTO.AlquilacionDTO;
+
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -31,8 +31,8 @@ public class Alquilacion {
     private List<Personal> personal;
 
     public Alquilacion(){
-
-    };
+        // Constructor vacío
+    }
 
     public long getId() {
         return id;

@@ -3,18 +3,15 @@ package com.HugoVentrice.GestorDeLogistica.service;
 import com.HugoVentrice.GestorDeLogistica.Security.UsuarioDetails;
 import com.HugoVentrice.GestorDeLogistica.model.Usuario;
 import com.HugoVentrice.GestorDeLogistica.repository.UsuarioRepository;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
     private final UsuarioRepository usuarioRepository;
 
-    public CustomUserDetailsService(UsuarioRepository usuarioRepository) {
+    public UserDetailsService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
 

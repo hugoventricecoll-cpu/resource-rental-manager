@@ -28,6 +28,7 @@ public class PersonalServiceTest {
 
     @BeforeEach
     void setup(){
+        personal = new Personal();
         personal.setNombre("Juan");
         personal.setTipo(Tipo.CHOFER);
         personal.setId(1L);

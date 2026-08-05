@@ -29,17 +29,6 @@ http://localhost:8091/swagger-ui.html
 
 The API is secured using Spring Security and JSON Web Tokens (JWT).
 
-## Testing
-
-Unit tests written with JUnit 5 and Mockito, covering the services with the most relevant business logic:
-
-- `UsuarioService` full CRUD
-- `AlquilacionService` including date overlap validation
-- `PersonalService` read and create (getAllPersonal & addPersonal)
-  
-
-Coverage is intentionally focused on business logic and validations rather than exhaustive testing of every controller/service.
-
 ### Authentication flow
 
 1. Register a new user.
@@ -47,11 +36,36 @@ Coverage is intentionally focused on business logic and validations rather than 
 3. Receive a JWT access token.
 4. Include the token in subsequent requests:
 
+## Testing
+
+Unit tests written with JUnit 5 and Mockito, covering the services with the most relevant business logic:
+
+- `UsuarioService` full CRUD
+- `AlquilacionService` including date overlap validation
+- `PersonalService` read and create (getAllPersonal & addPersonal)
+
+
+Coverage is intentionally focused on business logic and validations rather than exhaustive testing of every controller/service.
+
 ```
 Authorization: Bearer <your_token>
 ```
 
 Protected endpoints require a valid JWT.
+
+## Docker
+
+The application is fully containerized using Docker and Docker Compose:
+
+- A `Dockerfile` builds the Spring Boot app into its own image.
+- `docker-compose.yml` orchestrates the app together with a PostgreSQL
+  container, connected over Docker's internal network.
+
+To run the project locally:
+
+```
+docker compose up
+```
 
 ## Tech Stack
 
@@ -63,24 +77,28 @@ Protected endpoints require a valid JWT.
 - PostgreSQL
 - Maven
 - Swagger / OpenAPI
+- Docker
 
 ## Project Status
 
-This project started as a Spring Boot learning project and has evolved into a complete backend application featuring authentication, authorization, layered architecture, DTOs, business validations, database persistence, and unit testing.
+This project started as a Spring Boot learning project and has evolved into
+a complete backend application featuring authentication, authorization,
+layered architecture, DTOs, business validations, database persistence,
+unit testing, and containerization with Docker.
 
-Future improvements will focus on containerization, cloud deployment, and distributed systems.
+Future improvements will focus on a React frontend, cloud deployment, and distributed systems.
 
 ## Roadmap
 
-### Phase 1 — Backend hardening
+### Phase 1 — Backend hardening 
 
 - [X] Authentication and authorization with Spring Security + JWT
 - [X] Unit tests (JUnit/Mockito)
-- [ ] Dockerization
+- [X] Dockerization
 
 ### Phase 2 — Frontend
 
-- [ ] Angular client consuming this API
+- [ ] React client consuming this API
 
 ### Phase 3 — Deployment & beyond
 

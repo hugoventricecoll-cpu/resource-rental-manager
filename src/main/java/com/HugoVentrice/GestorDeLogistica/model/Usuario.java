@@ -47,7 +47,7 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public Usuario(){
+    public Usuario() {
 
     }
 

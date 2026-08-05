@@ -1,7 +1,5 @@
 package com.HugoVentrice.GestorDeLogistica.DTO;
 
-import com.HugoVentrice.GestorDeLogistica.model.Producto;
-
 public class ProductoDTO {
     private long id;
     private String nombre;

@@ -1,5 +1,6 @@
 package com.HugoVentrice.GestorDeLogistica.service;
 
+
 import com.HugoVentrice.GestorDeLogistica.DTO.*;
 import com.HugoVentrice.GestorDeLogistica.model.*;
 import com.HugoVentrice.GestorDeLogistica.repository.AlquilacionRepository;
@@ -7,8 +8,6 @@ import com.HugoVentrice.GestorDeLogistica.repository.PersonalRepository;
 import com.HugoVentrice.GestorDeLogistica.repository.ProductoRepository;
 import com.HugoVentrice.GestorDeLogistica.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +30,7 @@ public class AlquilacionService {
     public List<AlquilacionDTO> allAlquilaciones(){
 
         List<AlquilacionDTO> lista = new ArrayList<>();
+
 
         for (Alquilacion a : alquilacionRepository.findAll()){
 
@@ -88,6 +88,8 @@ public class AlquilacionService {
 
         boolean haySolapacion = false;
 
+
+
         for (Alquilacion a : alquilacionesDelProducto) {
             if (!(alquilacion.getFechaFin().isBefore(a.getFechaInicio()) || alquilacion.getFechaInicio().isAfter(a.getFechaFin()))) {
                 haySolapacion = true;
@@ -135,7 +137,7 @@ public class AlquilacionService {
 
     public void deleteAlquilacion(long id){
 
-        Alquilacion alquilacion = alquilacionRepository.findById(id).orElseThrow(() -> new RuntimeException("Alquilación no encontrada"));
+        alquilacionRepository.findById(id).orElseThrow(() -> new RuntimeException("Alquilación no encontrada"));
 
         alquilacionRepository.deleteById(id);
 

@@ -1,6 +1,6 @@
 package com.HugoVentrice.GestorDeLogistica.Security;
 
-import com.HugoVentrice.GestorDeLogistica.service.CustomUserDetailsService;
+import com.HugoVentrice.GestorDeLogistica.service.UserDetailsService;
 import com.HugoVentrice.GestorDeLogistica.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,9 +24,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
        Esto ya que, usas UserDetails para definir para SpringSecurity que es de tu usuario su USERNAME/IDENTIFICADOR y su CONTRASEÑA.
      */
 
-    private final CustomUserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    public JwtAuthenticationFilter(JwtService jwtService, CustomUserDetailsService userDetailsService) {
+    public JwtAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService) {
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
     }
@@ -51,7 +51,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             if (jwtService.isValid(jwt, userDetails)) {
                 /*
-                    UsernamePasswordAuthenticationToken es una clase que se extiende de Authentication, y la usamos para poder pasársela a SecurityContextHolder.
+                    UsernamePasswordAuthenticationToken es una clase que se extiende de Authentication, y la usamos para poder pasársela a SecurityContextHolder para decir que el usuario está autenticado
                     Ya que SecurityContextHolder, solo acepta objetos Authentication (o sus herederos).
                  */
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
