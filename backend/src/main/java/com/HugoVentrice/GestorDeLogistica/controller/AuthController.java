@@ -3,6 +3,7 @@ package com.HugoVentrice.GestorDeLogistica.controller;
 import com.HugoVentrice.GestorDeLogistica.DTO.LoginRequestDTO;
 import com.HugoVentrice.GestorDeLogistica.DTO.RegisterDTO;
 import com.HugoVentrice.GestorDeLogistica.service.AuthService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,8 +17,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequestDTO loginRequestDTO){
-        return authService.login(loginRequestDTO);
+    public ResponseEntity<String> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+
+        return ResponseEntity.ok(authService.login(loginRequestDTO));
     }
 
     @PostMapping("/register")

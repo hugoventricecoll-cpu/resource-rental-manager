@@ -108,6 +108,7 @@ public class AlquilacionService {
             }
 
             String tipoProducto;
+
             if (alquilacion.getProducto() instanceof Vehiculo) {
                 tipoProducto = "VEHICULO";
             } else if (alquilacion.getProducto() instanceof Sala) {
