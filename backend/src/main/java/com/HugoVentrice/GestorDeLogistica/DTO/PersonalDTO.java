@@ -6,12 +6,19 @@ public class PersonalDTO {
     private long id;
     private String nombre;
     private Tipo tipo;
+    private boolean disponible;
 
-    public PersonalDTO(long id, String nombre, Tipo tipo){
+    public PersonalDTO(long id, String nombre, Tipo tipo, boolean disponible){
         this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
+        this.disponible = disponible;
     }
+
+
+    public boolean isDisponible() {return disponible;}
+
+    public void setDisponible(boolean disponible) {this.disponible = disponible;}
 
     public long getId() {
         return id;

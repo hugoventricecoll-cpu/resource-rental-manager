@@ -4,6 +4,7 @@ import com.HugoVentrice.GestorDeLogistica.DTO.LoginRequestDTO;
 import com.HugoVentrice.GestorDeLogistica.DTO.RegisterDTO;
 import com.HugoVentrice.GestorDeLogistica.service.AuthService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,11 +20,17 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequestDTO loginRequestDTO) {
 
+
         return ResponseEntity.ok(authService.login(loginRequestDTO));
     }
 
     @PostMapping("/register")
     public String register(@RequestBody RegisterDTO registerDTO){
         return authService.register(registerDTO);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<String> me(){
+        return ResponseEntity.ok(SecurityContextHolder.getContext().getAuthentication().toString());
     }
 }

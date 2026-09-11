@@ -37,7 +37,7 @@ public class AlquilacionService {
             List<PersonalDTO> personalDTOs = new ArrayList<>();
 
             for (Personal p : a.getPersonal()){
-                personalDTOs.add(new PersonalDTO(p.getId(), p.getNombre(), p.getTipo()));
+                personalDTOs.add(new PersonalDTO(p.getId(), p.getNombre(), p.getTipo(), p.isDisponible()));
             }
 
             String tipoProducto;
@@ -104,7 +104,7 @@ public class AlquilacionService {
             List<PersonalDTO> personalDTOs = new ArrayList<>();
 
             for (Personal p : alquilacion.getPersonal()){
-                personalDTOs.add(new PersonalDTO(p.getId(),p.getNombre(),p.getTipo()));
+                personalDTOs.add(new PersonalDTO(p.getId(),p.getNombre(),p.getTipo(), p.isDisponible()));
             }
 
             String tipoProducto;
@@ -182,7 +182,7 @@ public class AlquilacionService {
         List<PersonalDTO> personalDTOList = new ArrayList<>();
 
         for (Personal  p : alquilacion.getPersonal()) {
-            personalDTOList.add(new PersonalDTO(p.getId(),p.getNombre(),p.getTipo()));
+            personalDTOList.add(new PersonalDTO(p.getId(),p.getNombre(),p.getTipo(), p.isDisponible()));
         }
 
         return new AlquilacionDTO(alquilacion.getId(), new ProductoDTO(alquilacion.getProducto().getId(), alquilacion.getProducto().getNombre(), alquilacion.getProducto().isDisponible(), tipo), new UsuarioDTO(alquilacion.getUsuario().getNombre(), alquilacion.getUsuario().getApellido(), alquilacion.getUsuario().getCorreo()), alquilacion.getFechaInicio(), alquilacion.getFechaFin(), personalDTOList);

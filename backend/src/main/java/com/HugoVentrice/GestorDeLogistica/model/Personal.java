@@ -15,6 +15,13 @@ public class Personal {
     @Enumerated(EnumType.STRING)
     private Tipo tipo;
 
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private boolean disponible;
+
+    public boolean isDisponible() {return disponible;}
+
+    public void setDisponible(boolean disponible) {this.disponible = disponible;}
+
     public long getId() {
         return id;
     }

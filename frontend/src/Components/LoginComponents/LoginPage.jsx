@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom"
+
 export default function LoginPage({login, setLogin}) {
+
+    const navigate = useNavigate()
 
     function makeItlog(){
         setLogin(false)
@@ -6,10 +10,29 @@ export default function LoginPage({login, setLogin}) {
 
     async function loginFunc(e){
         e.preventDefault()
-        console.log(e.target.mail.value)
-        console.log(e.target.password.value)
 
+        const mail = e.target.mail.value
+        const password = e.target.password.value
 
+        const usuario = await fetch("http://localhost:8091/api/auth/login",{
+            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            body: JSON.stringify({correo: mail, password: password})
+        })
+
+        if (!usuario.ok) {
+            const mensaje = await usuario.text()
+            console.log("Error:", usuario.status, mensaje)
+            return
+        }
+
+        const token = await usuario.text()
+
+        console.log(token)
+
+        localStorage.setItem("token", token)
+
+        navigate("/hub")
     }
 
     return (

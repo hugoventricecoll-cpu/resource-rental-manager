@@ -17,6 +17,7 @@ public class SalaController {
         this.salaService = salaService;
     }
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
     public List<SalaDTO> getAllSalas(){
         return salaService.getAllSalas();

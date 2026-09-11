@@ -25,7 +25,7 @@ public class PersonalService {
         List<PersonalDTO> list = new ArrayList<>();
 
         for (Personal p : personalRepository.findAll()){
-            list.add(new PersonalDTO(p.getId(), p.getNombre(), p.getTipo()));
+            list.add(new PersonalDTO(p.getId(), p.getNombre(), p.getTipo(),p.isDisponible()));
         }
 
         return list;
@@ -34,7 +34,7 @@ public class PersonalService {
     public PersonalDTO addPersonal(Personal personal){
         personalRepository.save(personal);
 
-        return new PersonalDTO(personal.getId(), personal.getNombre(), personal.getTipo());
+        return new PersonalDTO(personal.getId(), personal.getNombre(), personal.getTipo(), personal.isDisponible());
     }
 
 
@@ -55,10 +55,11 @@ public class PersonalService {
 
         personal1.setTipo(personal.getTipo());
         personal1.setNombre(personal.getNombre());
+        personal1.setDisponible(personal.isDisponible());
 
-        personalRepository.save(personal);
+        personalRepository.save(personal1);
 
-        return new PersonalDTO(personal1.getId(), personal1.getNombre(), personal1.getTipo());
+        return new PersonalDTO(personal1.getId(), personal1.getNombre(), personal1.getTipo(), personal1.isDisponible());
     }
 
 }

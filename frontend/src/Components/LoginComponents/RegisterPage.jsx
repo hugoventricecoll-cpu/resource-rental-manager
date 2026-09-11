@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom"
+
 export default function RegisterPage({ login, setLogin }) {
+
+    const navigate = useNavigate()
 
     function makeItlog() {
         setLogin(true)
@@ -34,21 +38,7 @@ export default function RegisterPage({ login, setLogin }) {
 
         localStorage.setItem("token", token)
 
-        return usuario;
-    }
-
-    async function test() {
-        const token = localStorage.getItem("token")
-
-        const respuesta = await fetch("http://localhost:8091/api/vehiculos", {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
-
-        const datos = await respuesta.json()
-
-        console.log(datos)
+        navigate("/hub")
     }
 
 
@@ -90,7 +80,6 @@ export default function RegisterPage({ login, setLogin }) {
             <div className='haveAcc?'>
                 Already have an account? <button onClick={makeItlog} className='plain-button' > Login </button>
             </div>
-            <button onClick={test}> test </button>
         </>
     )
 }

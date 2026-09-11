@@ -18,6 +18,7 @@ public class PersonalController {
         this.personalService = personalService;
     }
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
     public List<PersonalDTO> getAllPersonal() {
         return personalService.getAllPersonal();
