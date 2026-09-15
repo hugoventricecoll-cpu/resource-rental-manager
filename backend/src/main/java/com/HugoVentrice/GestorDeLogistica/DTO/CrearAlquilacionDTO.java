@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CrearAlquilacionDTO {
 
-    private Long productoId;
+    private List<Long> productoIds;
     private Long usuarioId;
     private List<Long> personalIds;
     private LocalDateTime fechaInicio;
@@ -14,20 +14,20 @@ public class CrearAlquilacionDTO {
     public CrearAlquilacionDTO(){
     }
 
-    public CrearAlquilacionDTO(Long productoId, Long usuarioId, List<Long> personalIds, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
-        this.productoId = productoId;
+    public CrearAlquilacionDTO(List<Long> productoIds, Long usuarioId, List<Long> personalIds, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+        this.productoIds = productoIds;
         this.usuarioId = usuarioId;
         this.personalIds = personalIds;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
     }
 
-    public Long getProductoId() {
-        return productoId;
+    public List<Long> getProductoIds() {
+        return productoIds;
     }
 
-    public void setProductoId(Long productoId) {
-        this.productoId = productoId;
+    public void setProductoIds(List<Long> productoIds) {
+        this.productoIds = productoIds;
     }
 
     public Long getUsuarioId() {

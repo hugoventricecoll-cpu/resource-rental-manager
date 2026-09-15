@@ -1,23 +1,23 @@
 import { useNavigate } from "react-router-dom"
 
-export default function LoginPage({login, setLogin}) {
+export default function LoginPage({ login, setLogin }) {
 
     const navigate = useNavigate()
 
-    function makeItlog(){
+    function makeItlog() {
         setLogin(false)
     }
 
-    async function loginFunc(e){
+    async function loginFunc(e) {
         e.preventDefault()
 
         const mail = e.target.mail.value
         const password = e.target.password.value
 
-        const usuario = await fetch("http://localhost:8091/api/auth/login",{
+        const usuario = await fetch("http://localhost:8091/api/auth/login", {
             headers: { "Content-Type": "application/json" },
             method: "POST",
-            body: JSON.stringify({correo: mail, password: password})
+            body: JSON.stringify({ correo: mail, password: password })
         })
 
         if (!usuario.ok) {
@@ -31,6 +31,17 @@ export default function LoginPage({login, setLogin}) {
         console.log(token)
 
         localStorage.setItem("token", token)
+        localStorage.setItem("userMail", mail)
+
+        const me = await fetch("http://localhost:8091/api/auth/me", {
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            method: "GET"
+        })
+
+        if (me.ok) {
+            localStorage.setItem("userId", await me.text())
+        }
+
 
         navigate("/hub")
     }
@@ -58,7 +69,7 @@ export default function LoginPage({login, setLogin}) {
                     <button> Login </button>
                 </form>
             </div>
-            <div className='haveNoAcc?'>
+            <div className='switchAuth'>
                 Dont have an account? <button onClick={makeItlog} className='plain-button'> Register </button>
             </div>
         </>

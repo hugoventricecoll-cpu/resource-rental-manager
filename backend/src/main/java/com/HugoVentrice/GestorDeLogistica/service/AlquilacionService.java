@@ -8,6 +8,7 @@ import com.HugoVentrice.GestorDeLogistica.repository.PersonalRepository;
 import com.HugoVentrice.GestorDeLogistica.repository.ProductoRepository;
 import com.HugoVentrice.GestorDeLogistica.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,113 +28,125 @@ public class AlquilacionService {
         this.personalRepository = personalRepository;
     }
 
-    public List<AlquilacionDTO> allAlquilaciones(){
+    private static boolean seSolapan(LocalDateTime inicio1, LocalDateTime fin1, LocalDateTime inicio2, LocalDateTime fin2) {
+        return !(fin1.isBefore(inicio2) || inicio1.isAfter(fin2));
+    }
 
-        List<AlquilacionDTO> lista = new ArrayList<>();
-
-
-        for (Alquilacion a : alquilacionRepository.findAll()){
-
-            List<PersonalDTO> personalDTOs = new ArrayList<>();
-
-            for (Personal p : a.getPersonal()){
-                personalDTOs.add(new PersonalDTO(p.getId(), p.getNombre(), p.getTipo(), p.isDisponible()));
-            }
-
-            String tipoProducto;
-
-            if (a.getProducto() instanceof Vehiculo) {
-                tipoProducto = "VEHICULO";
-            } else if (a.getProducto() instanceof Sala) {
-                tipoProducto = "SALA";
-            } else {
-                tipoProducto = "DESCONOCIDO";
-            }
-
-            UsuarioDTO usuarioDTO = new UsuarioDTO(a.getUsuario().getNombre(), a.getUsuario().getApellido(),a.getUsuario().getCorreo());
-            ProductoDTO productoDTO = new ProductoDTO(a.getProducto().getId(),a.getProducto().getNombre(),a.getProducto().isDisponible(), tipoProducto);
-
-            lista.add(new AlquilacionDTO(a.getId(), productoDTO, usuarioDTO, a.getFechaInicio(), a.getFechaFin(), personalDTOs));
+    private static String tipoDe(Producto producto) {
+        if (producto instanceof Vehiculo) {
+            return "VEHICULO";
+        } else if (producto instanceof Sala) {
+            return "SALA";
+        } else {
+            return "DESCONOCIDO";
         }
+    }
 
+    private List<ProductoDTO> toProductoDTOs(List<Producto> productos) {
+        List<ProductoDTO> dtos = new ArrayList<>();
+        for (Producto producto : productos) {
+            dtos.add(new ProductoDTO(producto.getId(), producto.getNombre(), tipoDe(producto)));
+        }
+        return dtos;
+    }
+
+    private List<PersonalDTO> toPersonalDTOs(List<Personal> personal) {
+        List<PersonalDTO> dtos = new ArrayList<>();
+        for (Personal p : personal) {
+            dtos.add(new PersonalDTO(p.getId(), p.getNombre(), p.getTipo()));
+        }
+        return dtos;
+    }
+
+    private AlquilacionDTO toDTO(Alquilacion alquilacion) {
+        UsuarioDTO usuarioDTO = new UsuarioDTO(
+                alquilacion.getUsuario().getNombre(),
+                alquilacion.getUsuario().getApellido(),
+                alquilacion.getUsuario().getCorreo());
+        return new AlquilacionDTO(
+                alquilacion.getId(),
+                toProductoDTOs(alquilacion.getProductos()),
+                usuarioDTO,
+                alquilacion.getFechaInicio(),
+                alquilacion.getFechaFin(),
+                toPersonalDTOs(alquilacion.getPersonal()));
+    }
+
+    public List<AlquilacionDTO> allAlquilaciones(){
+        List<AlquilacionDTO> lista = new ArrayList<>();
+        for (Alquilacion a : alquilacionRepository.findAll()){
+            lista.add(toDTO(a));
+        }
         return lista;
+    }
+
+    private void validarFechas(LocalDateTime inicio, LocalDateTime fin) {
+        if (inicio == null || fin == null) {
+            throw new RuntimeException("Fechas de inicio y fin son obligatorias");
+        }
+        if (!fin.isAfter(inicio)) {
+            throw new RuntimeException("Fecha de FIN es anterior a la fecha de INICIO");
+        }
+    }
+
+    private void comprobarSolapeProductos(List<Producto> productos, LocalDateTime inicio, LocalDateTime fin, long ignorarAlquilacionId) {
+        for (Producto producto : productos) {
+            for (Alquilacion a : alquilacionRepository.findByProductos(producto)) {
+                if (a.getId() != ignorarAlquilacionId && seSolapan(inicio, fin, a.getFechaInicio(), a.getFechaFin())) {
+                    throw new RuntimeException("El producto '" + producto.getNombre() + "' ya está reservado en esas fechas");
+                }
+            }
+        }
+    }
+
+    private void comprobarSolapePersonal(List<Personal> personal, LocalDateTime inicio, LocalDateTime fin, long ignorarAlquilacionId) {
+        for (Personal p : personal) {
+            for (Alquilacion a : alquilacionRepository.findByPersonal(p)) {
+                if (a.getId() != ignorarAlquilacionId && seSolapan(inicio, fin, a.getFechaInicio(), a.getFechaFin())) {
+                    throw new RuntimeException("El empleado '" + p.getNombre() + "' ya está asignado en esas fechas");
+                }
+            }
+        }
     }
 
     public AlquilacionDTO crearAlquilacion(CrearAlquilacionDTO dto){
 
-        Producto producto = productoRepository.findById(dto.getProductoId())
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+        validarFechas(dto.getFechaInicio(), dto.getFechaFin());
+
+        if (dto.getProductoIds() == null || dto.getProductoIds().isEmpty()) {
+            throw new RuntimeException("La alquilación debe incluir al menos un producto");
+        }
+
+        List<Producto> productos = new ArrayList<>();
+        for (Long productoId : dto.getProductoIds()) {
+            productos.add(productoRepository.findById(productoId)
+                    .orElseThrow(() -> new RuntimeException("Producto no encontrado")));
+        }
 
         Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         List<Personal> personalList = new ArrayList<>();
-
-        for (Long personalId : dto.getPersonalIds()) {
-
-            Personal p = personalRepository.findById(personalId)
-                    .orElseThrow(() -> new RuntimeException("Personal no encontrado"));
-
-            personalList.add(p);
+        if (dto.getPersonalIds() != null) {
+            for (Long personalId : dto.getPersonalIds()) {
+                personalList.add(personalRepository.findById(personalId)
+                        .orElseThrow(() -> new RuntimeException("Personal no encontrado")));
+            }
         }
 
+        comprobarSolapeProductos(productos, dto.getFechaInicio(), dto.getFechaFin(), -1);
+        comprobarSolapePersonal(personalList, dto.getFechaInicio(), dto.getFechaFin(), -1);
+
         Alquilacion alquilacion = new Alquilacion();
-        alquilacion.setProducto(producto);
+        alquilacion.setProductos(productos);
         alquilacion.setUsuario(usuario);
         alquilacion.setPersonal(personalList);
         alquilacion.setFechaInicio(dto.getFechaInicio());
         alquilacion.setFechaFin(dto.getFechaFin());
 
-        List<Alquilacion> alquilacionesDelProducto = alquilacionRepository.findByProducto(alquilacion.getProducto());
+        alquilacionRepository.save(alquilacion);
 
-        boolean haySolapacion = false;
-
-
-
-        for (Alquilacion a : alquilacionesDelProducto) {
-            if (!(alquilacion.getFechaFin().isBefore(a.getFechaInicio()) || alquilacion.getFechaInicio().isAfter(a.getFechaFin()))) {
-                haySolapacion = true;
-                break;
-            }
-        }
-
-        if (alquilacion.getFechaFin().isAfter(alquilacion.getFechaInicio()) && !haySolapacion) {
-
-            alquilacionRepository.save(alquilacion);
-
-            List<PersonalDTO> personalDTOs = new ArrayList<>();
-
-            for (Personal p : alquilacion.getPersonal()){
-                personalDTOs.add(new PersonalDTO(p.getId(),p.getNombre(),p.getTipo(), p.isDisponible()));
-            }
-
-            String tipoProducto;
-
-            if (alquilacion.getProducto() instanceof Vehiculo) {
-                tipoProducto = "VEHICULO";
-            } else if (alquilacion.getProducto() instanceof Sala) {
-                tipoProducto = "SALA";
-            } else {
-                tipoProducto = "DESCONOCIDO";
-            }
-
-            UsuarioDTO usuarioDTO = new UsuarioDTO(alquilacion.getUsuario().getNombre(), alquilacion.getUsuario().getApellido(),alquilacion.getUsuario().getCorreo());
-            ProductoDTO productoDTO = new ProductoDTO(alquilacion.getProducto().getId(),alquilacion.getProducto().getNombre(),alquilacion.getProducto().isDisponible(), tipoProducto);
-
-            return new AlquilacionDTO(
-                    alquilacion.getId(),
-                    productoDTO,
-                    usuarioDTO,
-                    alquilacion.getFechaInicio(),
-                    alquilacion.getFechaFin(),
-                    personalDTOs
-            );
-
-        } else if (!(alquilacion.getFechaFin().isAfter(alquilacion.getFechaInicio()))) {
-            throw new RuntimeException("Fecha de FIN es anterior a la fecha de INICIO");
-        } else {
-            throw new RuntimeException("Hay solapación con otra alquilación");
-        }
+        return toDTO(alquilacion);
     }
 
     public void deleteAlquilacion(long id){
@@ -147,44 +160,36 @@ public class AlquilacionService {
     public AlquilacionDTO actualizarAlquilacion(long id, CrearAlquilacionDTO alquilacionUpdated){
         Alquilacion alquilacion = alquilacionRepository.findById(id).orElseThrow(() -> new RuntimeException("Alquilacion con id '" + id + "' no encontrada"));
 
-        alquilacion.setUsuario(usuarioRepository.findById(alquilacionUpdated.getUsuarioId()).orElseThrow(() -> new RuntimeException("Usuario con id '" + id + "' no encontrada")));
-        alquilacion.setProducto(productoRepository.findById(alquilacionUpdated.getProductoId()).orElseThrow(() -> new RuntimeException("Producto con id '" + id + "' no encontrada")));
+        validarFechas(alquilacionUpdated.getFechaInicio(), alquilacionUpdated.getFechaFin());
 
-        boolean haySolapacion = false;
-        for (Alquilacion a : alquilacionRepository.findByProducto(alquilacion.getProducto())) {
-            if ( a.getId()!= alquilacion.getId() && !(alquilacion.getFechaFin().isBefore(a.getFechaInicio()) || alquilacion.getFechaInicio().isAfter(a.getFechaFin()))) {
-                haySolapacion = true;
-                break;
-            }
+        if (alquilacionUpdated.getProductoIds() == null || alquilacionUpdated.getProductoIds().isEmpty()) {
+            throw new RuntimeException("La alquilación debe incluir al menos un producto");
         }
 
-        if (alquilacionUpdated.getFechaFin().isAfter(alquilacionUpdated.getFechaInicio()) && !haySolapacion){
-             alquilacion.setFechaFin(alquilacionUpdated.getFechaFin());
-             alquilacion.setFechaInicio(alquilacionUpdated.getFechaInicio());
-        } else if (!alquilacionUpdated.getFechaFin().isAfter(alquilacionUpdated.getFechaInicio())) {
-            throw new RuntimeException("Fecha de FIN es anterior a la fecha de INICIO");
-        } else {
-            throw new RuntimeException("Error actualizando alquilacion: Fecha elegida solapa con otra alquilacion");
+        List<Producto> productos = new ArrayList<>();
+        for (Long productoId : alquilacionUpdated.getProductoIds()) {
+            productos.add(productoRepository.findById(productoId)
+                    .orElseThrow(() -> new RuntimeException("Producto con id '" + productoId + "' no encontrado")));
         }
 
         List<Personal> personal = new ArrayList<>();
-
-        for (Long p : alquilacionUpdated.getPersonalIds()){
-            personal.add(personalRepository.findById(p).orElseThrow(() -> new RuntimeException("Id no encontrada")));
+        if (alquilacionUpdated.getPersonalIds() != null) {
+            for (Long p : alquilacionUpdated.getPersonalIds()){
+                personal.add(personalRepository.findById(p).orElseThrow(() -> new RuntimeException("Personal con id '" + p + "' no encontrado")));
+            }
         }
 
+        comprobarSolapeProductos(productos, alquilacionUpdated.getFechaInicio(), alquilacionUpdated.getFechaFin(), alquilacion.getId());
+        comprobarSolapePersonal(personal, alquilacionUpdated.getFechaInicio(), alquilacionUpdated.getFechaFin(), alquilacion.getId());
+
+        alquilacion.setUsuario(usuarioRepository.findById(alquilacionUpdated.getUsuarioId()).orElseThrow(() -> new RuntimeException("Usuario con id '" + alquilacionUpdated.getUsuarioId() + "' no encontrado")));
+        alquilacion.setProductos(productos);
         alquilacion.setPersonal(personal);
+        alquilacion.setFechaInicio(alquilacionUpdated.getFechaInicio());
+        alquilacion.setFechaFin(alquilacionUpdated.getFechaFin());
 
         alquilacionRepository.save(alquilacion);
 
-        String tipo = (alquilacion.getProducto() instanceof  Vehiculo) ? "Vehiculo" : "Sala";
-
-        List<PersonalDTO> personalDTOList = new ArrayList<>();
-
-        for (Personal  p : alquilacion.getPersonal()) {
-            personalDTOList.add(new PersonalDTO(p.getId(),p.getNombre(),p.getTipo(), p.isDisponible()));
-        }
-
-        return new AlquilacionDTO(alquilacion.getId(), new ProductoDTO(alquilacion.getProducto().getId(), alquilacion.getProducto().getNombre(), alquilacion.getProducto().isDisponible(), tipo), new UsuarioDTO(alquilacion.getUsuario().getNombre(), alquilacion.getUsuario().getApellido(), alquilacion.getUsuario().getCorreo()), alquilacion.getFechaInicio(), alquilacion.getFechaFin(), personalDTOList);
+        return toDTO(alquilacion);
     }
 }

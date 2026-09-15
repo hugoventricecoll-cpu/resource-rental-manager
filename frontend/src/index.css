@@ -1,6 +1,39 @@
-:root{
-  background-color: black;
-  color: wheat;
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Google+Sans+Flex:opsz,slnt,wdth,wght,GRAD,ROND@6..144,-10..0,25..151,1..1000,0..100,0..100&display=swap');
+
+:root {
+  --bg: #faf7f2;
+  --surface: #ffffff;
+  --sand: #f2efe6;
+  --sand-dark: #d9d4c5;
+  --ink: #2b2620;
+  --accent: #7d9b76;
+  --accent-dark: #677f61;
+  background-color: var(--bg);
+  color: var(--ink);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 400;
+  background-color: var(--bg);
+  color: var(--ink);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+}
+
+#root {
+  display: flex;
+  min-height: 100vh;
 }
 
 .plain-button {
@@ -12,4 +45,404 @@
   font: inherit;
   cursor: pointer;
   text-decoration: underline;
+}
+
+.navbar {
+  width: 240px;
+  min-height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  background-color: #f2efe6;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.navbar a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #171717;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.15s;
+}
+
+.nav-icon {
+  width: 18px;
+  color: var(--accent-dark);
+}
+
+.navbar a:hover {
+  background-color: #d9d4c5;
+}
+
+.navbar a:visited {
+  color: #171717;
+}
+
+.content {
+  flex: 1;
+  padding: 24px;
+  min-width: 0;
+  background-color: var(--bg);
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: var(--surface);
+  border: 1px solid #ece5d4;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 24px rgba(43, 38, 32, 0.06);
+  overflow: hidden;
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+}
+
+.hero p {
+  margin: 0;
+  line-height: 1.5;
+  opacity: 0.8;
+  max-width: 640px;
+}
+
+.hero-img {
+  width: 280px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.dash-title {
+  margin: 4px 0 12px;
+}
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.dash-card {
+  display: block;
+  background-color: var(--surface);
+  color: var(--ink);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  border-top: 4px solid var(--accent);
+  box-shadow: 0 4px 14px rgba(43, 38, 32, 0.06);
+  transition: transform 0.15s, box-shadow 0.15s, background-color 0.15s;
+}
+
+.dash-card:hover {
+  background-color: var(--sand-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(43, 38, 32, 0.12);
+}
+
+.dash-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+  background-color: var(--sand-dark);
+}
+
+.dash-card-body {
+  padding: 16px 20px 20px;
+}
+
+.dash-card-body svg {
+  font-size: 24px;
+  color: var(--accent-dark);
+  margin-bottom: 8px;
+}
+
+.dash-card h2 {
+  margin: 0 0 8px;
+}
+
+.dash-card p {
+  margin: 0 0 12px;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+
+.dash-card span {
+  font-weight: 600;
+  color: var(--accent-dark);
+}
+
+.mainLoginPage {
+  margin: auto;
+  width: min(880px, calc(100% - 40px));
+  display: flex;
+  background-color: var(--surface);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(43, 38, 32, 0.08);
+}
+
+.sideText-mainLoginPage {
+  flex: 1;
+  background-color: var(--accent);
+  color: #fff;
+  padding: 40px 32px;
+}
+
+.sideText-mainLoginPage h1 {
+  margin: 0 0 12px;
+}
+
+.sideText-mainLoginPage p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.loginMenu {
+  flex: 1;
+  padding: 32px;
+}
+
+.topText h2 {
+  margin: 0 0 4px;
+}
+
+.topText p {
+  margin: 0 0 16px;
+  opacity: 0.75;
+}
+
+.loginForm form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.loginForm p {
+  margin: 0 0 4px;
+  font-weight: 600;
+}
+
+.loginForm input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e3ddd0;
+  border-radius: 10px;
+  font: inherit;
+  background-color: #fff;
+  color: var(--ink);
+}
+
+.loginForm input:focus {
+  outline: 2px solid var(--accent);
+  border-color: var(--accent);
+}
+
+.loginForm button {
+  margin-top: 8px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.loginForm button:hover {
+  background-color: var(--accent-dark);
+}
+
+.switchAuth {
+  margin-top: 16px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background-color: var(--surface);
+  box-shadow: 0px 12px 8px rgba(43, 38, 32, 0.06);
+  color: #171717;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.card p {
+  margin: 4px 0;
+}
+
+.card p:first-child {
+  font-weight: 700;
+}
+
+.card-btn {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.card-btn:hover:not(:disabled) {
+  background-color: var(--accent-dark);
+}
+
+.card-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.form-card {
+  margin-bottom: 24px;
+}
+
+.form-card h2 {
+  margin: 0 0 12px;
+}
+
+.cart-list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+}
+
+.cart-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #e3ddd0;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.form-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 600;
+}
+
+.form-row input {
+  padding: 10px 12px;
+  border: 1px solid #e3ddd0;
+  border-radius: 10px;
+  font: inherit;
+  background-color: #fff;
+  color: var(--ink);
+}
+
+.accent-btn {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.accent-btn:hover {
+  background-color: var(--accent-dark);
+}
+
+@media (max-width: 700px) {
+  #root {
+    flex-direction: column;
+  }
+
+  .navbar {
+    width: 100%;
+    min-height: auto;
+    height: auto;
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .mainLoginPage {
+    flex-direction: column;
+  }
+
+  .sideText-mainLoginPage {
+    padding: 28px 24px;
+  }
+
+  .loginMenu {
+    padding: 24px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 24px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: 180px;
+  }
+
+  main {
+    padding: 20px;
+  }
 }

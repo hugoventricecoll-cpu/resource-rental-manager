@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import CarCard from "./CarCard"
 
-export default function Vehiculos() {
+export default function Vehiculos({ carrito, setCarrito }) {
 
     const [coches, setCoches] = useState([])
 
@@ -12,7 +12,10 @@ export default function Vehiculos() {
             method: "GET"
         })
 
-        if (!listaDeCoches.ok) {console.log("Err")}
+        if (!listaDeCoches.ok) {
+            console.log("GET /api/vehiculos failed:", listaDeCoches.status, await listaDeCoches.text());
+            return;
+        }
 
         setCoches(await listaDeCoches.json())
     }
@@ -21,9 +24,14 @@ export default function Vehiculos() {
         getCoches()
     }, [])
 
+    function addAlCarrito(coche) {
+        if (carrito.some(i => i.kind === "producto" && i.id === coche.id)) return;
+        setCarrito([...carrito, { kind: "producto", id: coche.id, nombre: coche.nombre }]);
+    }
+
     return (
-        <>
-            {coches.map(p => <CarCard key={p.id} disponible={p.disponible} nombre={p.nombre} kilometraje={p.kilometraje} matricula={p.matricula} plazas={p.plazas}/> )}
-        </>
+        <div className="card-grid">
+            {coches.map(p => <CarCard key={p.id} nombre={p.nombre} kilometraje={p.kilometraje} matricula={p.matricula} plazas={p.plazas} enCarrito={carrito.some(i => i.kind === "producto" && i.id === p.id)} onAdd={() => addAlCarrito(p)} />)}
+        </div>
     )
 }

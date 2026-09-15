@@ -6,14 +6,12 @@ public class SalaDTO {
 
     private int aforo;
     private String ubicacion;
-    private boolean disponible;
     private long id;
     private String nombre;
 
-    public SalaDTO(int aforo, String ubicacion, boolean disponible, long id, String nombre){
+    public SalaDTO(int aforo, String ubicacion, long id, String nombre){
         this.aforo = aforo;
         this.ubicacion = ubicacion;
-        this.disponible = disponible;
         this.id = id;
         this.nombre = nombre;
     }
@@ -32,14 +30,6 @@ public class SalaDTO {
 
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
-    }
-
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
     }
 
     public long getId() {

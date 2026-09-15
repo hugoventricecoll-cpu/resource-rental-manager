@@ -6,14 +6,14 @@ export default function Login() {
 
     const [login, setLogin] = useState(true)
 
-    return(
+    return (
         <div className='mainLoginPage'>
             <div className='sideText-mainLoginPage'>
                 <h1>
                     Welcome!
                 </h1>
                 <p>
-                    Login or register to 
+                    Login or register to
                     make reservations for your events!
                 </p>
             </div>

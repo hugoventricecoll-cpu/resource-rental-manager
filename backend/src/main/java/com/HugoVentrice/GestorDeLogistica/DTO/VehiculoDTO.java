@@ -6,27 +6,17 @@ public class VehiculoDTO {
     private int kilometraje;
     private String matricula;
     private int plazas;
-    private boolean disponible;
     private long id;
     private String nombre;
 
-    public VehiculoDTO(int kilometraje, String matricula, int plazas, boolean disponible, long id, String nombre){
+    public VehiculoDTO(int kilometraje, String matricula, int plazas, long id, String nombre){
         this.kilometraje = kilometraje;
         this.matricula = matricula;
         this.plazas = plazas;
-        this.disponible = disponible;
         this.id = id;
         this.nombre = nombre;
     }
 
-
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
-    }
 
     public long getId() {
         return id;

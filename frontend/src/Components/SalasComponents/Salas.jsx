@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
 import SalasCard from "./SalasCard"
 
-export default function Salas() {
+export default function Salas({ carrito, setCarrito }) {
 
     const [salas, setSalas] = useState([])
 
     async function getSalas() {
 
         const salasList = await fetch("http://localhost:8091/api/sala", {
-            headers: {"Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("token")}`},
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("token")}` },
             method: "GET"
         })
 
@@ -24,9 +24,16 @@ export default function Salas() {
         getSalas()
     }, [])
 
+    function addAlCarrito(sala) {
+        if (carrito.some(i => i.kind === "producto" && i.id === sala.id)) return;
+        setCarrito([...carrito, { kind: "producto", id: sala.id, nombre: sala.nombre }]);
+    }
+
     return (
-        <>
-            {salas.map(s => <SalasCard key={s.id} sala={s} />)}
-        </>
+        <div className="card-grid">
+            {salas.map(s => <SalasCard key={s.id} sala={s}
+                enCarrito={carrito.some(i => i.kind === "producto" && i.id === s.id)}
+                onAdd={() => addAlCarrito(s)} />)}
+        </div>
     )
 }

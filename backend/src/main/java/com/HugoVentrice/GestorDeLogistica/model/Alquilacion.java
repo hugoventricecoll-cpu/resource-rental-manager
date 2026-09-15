@@ -13,9 +13,8 @@ public class Alquilacion {
     @GeneratedValue
     private long id;
 
-    @JoinColumn(nullable = false)
-    @ManyToOne
-    private Producto producto;
+    @ManyToMany
+    private List<Producto> productos;
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -42,12 +41,12 @@ public class Alquilacion {
         this.id = id;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public List<Producto> getProductos() {
+        return productos;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
 
     public Usuario getUsuario() {

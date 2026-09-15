@@ -48,7 +48,6 @@ public class AlquilacionServiceTest {
         Sala sala = new Sala();
         sala.setId(1L);
         sala.setNombre("Sala A");
-        sala.setDisponible(true);
 
         Usuario usuario = new Usuario();
         usuario.setNombre("Miguel");
@@ -57,7 +56,7 @@ public class AlquilacionServiceTest {
 
         alquilacionDePrueba = new Alquilacion();
         alquilacionDePrueba.setId(1L);
-        alquilacionDePrueba.setProducto(sala);
+        alquilacionDePrueba.setProductos(List.of(sala));
         alquilacionDePrueba.setUsuario(usuario);
         alquilacionDePrueba.setFechaInicio(LocalDateTime.of(2026, 8, 10, 10, 0));
         alquilacionDePrueba.setFechaFin(LocalDateTime.of(2026, 8, 15, 18, 0));
@@ -65,7 +64,7 @@ public class AlquilacionServiceTest {
 
         alquilacionQueSolapa = new Alquilacion();
         alquilacionQueSolapa.setId(2L);
-        alquilacionQueSolapa.setProducto(sala);
+        alquilacionQueSolapa.setProductos(List.of(sala));
         alquilacionQueSolapa.setUsuario(usuario);
         alquilacionQueSolapa.setFechaInicio(LocalDateTime.of(2026, 8, 11, 10, 0));
         alquilacionQueSolapa.setFechaFin(LocalDateTime.of(2026, 8, 14, 18, 0));
@@ -90,18 +89,18 @@ public class AlquilacionServiceTest {
         CrearAlquilacionDTO dto = new CrearAlquilacionDTO();
         dto.setFechaFin(alquilacionDePrueba.getFechaFin());
         dto.setFechaInicio(alquilacionDePrueba.getFechaInicio());
-        dto.setProductoId(alquilacionDePrueba.getProducto().getId());
+        dto.setProductoIds(List.of(alquilacionDePrueba.getProductos().getFirst().getId()));
         dto.setUsuarioId(alquilacionDePrueba.getUsuario().getId());
 
         dto.setPersonalIds(new ArrayList<>());
 
-        Mockito.when(productoRepository.findById(dto.getProductoId()))
-                .thenReturn(Optional.of(alquilacionDePrueba.getProducto()));
+        Mockito.when(productoRepository.findById(dto.getProductoIds().getFirst()))
+                .thenReturn(Optional.of(alquilacionDePrueba.getProductos().getFirst()));
 
         Mockito.when(usuarioRepository.findById(dto.getUsuarioId()))
                 .thenReturn(Optional.of(alquilacionDePrueba.getUsuario()));
 
-        Mockito.when(alquilacionRepository.findByProducto(alquilacionDePrueba.getProducto()))
+        Mockito.when(alquilacionRepository.findByProductos(alquilacionDePrueba.getProductos().getFirst()))
                 .thenReturn(new ArrayList<>());
 
         Mockito.when(alquilacionRepository.save(Mockito.any(Alquilacion.class)))
@@ -118,22 +117,22 @@ public class AlquilacionServiceTest {
         CrearAlquilacionDTO dto = new CrearAlquilacionDTO();
         dto.setFechaFin(alquilacionDePrueba.getFechaFin());
         dto.setFechaInicio(alquilacionDePrueba.getFechaInicio());
-        dto.setProductoId(alquilacionDePrueba.getProducto().getId());
+        dto.setProductoIds(List.of(alquilacionDePrueba.getProductos().getFirst().getId()));
         dto.setUsuarioId(alquilacionDePrueba.getUsuario().getId());
         dto.setPersonalIds(new ArrayList<>());
 
-        Mockito.when(productoRepository.findById(dto.getProductoId()))
-                .thenReturn(Optional.of(alquilacionDePrueba.getProducto()));
+        Mockito.when(productoRepository.findById(dto.getProductoIds().getFirst()))
+                .thenReturn(Optional.of(alquilacionDePrueba.getProductos().getFirst()));
         Mockito.when(usuarioRepository.findById(dto.getUsuarioId()))
                 .thenReturn(Optional.of(alquilacionDePrueba.getUsuario()));
-        Mockito.when(alquilacionRepository.findByProducto(alquilacionDePrueba.getProducto()))
+        Mockito.when(alquilacionRepository.findByProductos(alquilacionDePrueba.getProductos().getFirst()))
                 .thenReturn(List.of(alquilacionQueSolapa));
 
         RuntimeException ex = assertThrows(RuntimeException.class, () -> {
             alquilacionService.crearAlquilacion(dto);
         });
 
-        assertThat(ex.getMessage()).isEqualTo("Hay solapación con otra alquilación");
+        assertThat(ex.getMessage()).isEqualTo("El producto 'Sala A' ya está reservado en esas fechas");
     }
 
 }

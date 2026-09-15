@@ -37,6 +37,15 @@ export default function RegisterPage({ login, setLogin }) {
         const token = await usuario.text()
 
         localStorage.setItem("token", token)
+        localStorage.setItem("userMail", mail)
+
+        const me = await fetch("http://localhost:8091/api/auth/me", {
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            method: "GET"
+        })
+        if (me.ok) {
+            localStorage.setItem("userId", await me.text())
+        }
 
         navigate("/hub")
     }
@@ -77,7 +86,7 @@ export default function RegisterPage({ login, setLogin }) {
                     <button> Register </button>
                 </form>
             </div>
-            <div className='haveAcc?'>
+            <div className='switchAuth'>
                 Already have an account? <button onClick={makeItlog} className='plain-button' > Login </button>
             </div>
         </>

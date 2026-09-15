@@ -26,7 +26,7 @@ public class SalaService {
         List<SalaDTO> lista = new ArrayList<>();
 
         for (Sala s : salaRepository.findAll()){
-            lista.add(new SalaDTO(s.getAforo(), s.getUbicacion(), s.isDisponible(), s.getId(), s.getNombre()));
+            lista.add(new SalaDTO(s.getAforo(), s.getUbicacion(), s.getId(), s.getNombre()));
         }
 
         return lista;
@@ -35,30 +35,28 @@ public class SalaService {
     public SalaDTO createSala(Sala sala){
         salaRepository.save(sala);
 
-        return new SalaDTO(sala.getAforo(), sala.getUbicacion(), sala.isDisponible(), sala.getId(), sala.getNombre());
+        return new SalaDTO(sala.getAforo(), sala.getUbicacion(), sala.getId(), sala.getNombre());
     }
 
     public void deleteSala(long id){
-        List<Alquilacion> alquilacionList = alquilacionRepository.findByProducto(salaRepository.findById(id).orElseThrow
-                (()-> new RuntimeException("Sala con id '" + id + "' no encontrada")));
+        List<Alquilacion> alquilacionList = alquilacionRepository.findByProductos(salaRepository.findById(id).orElseThrow(()-> new RuntimeException("Sala con id '" + id + "' no encontrada")));
 
         if (!alquilacionList.isEmpty()) {
             throw new RuntimeException("Sala con id '" + id + "' pertenece a una Alquilación, cancelar alquilación primero");
         }
 
-        alquilacionRepository.deleteById(id);
+        salaRepository.deleteById(id);
     }
 
     public SalaDTO actualizarSala(long id, Sala sala){
         Sala sala1 = salaRepository.findById(id).orElseThrow(() -> new RuntimeException("Sala con id '" + id + "' no encontrada"));
 
         sala1.setAforo(sala.getAforo());
-        sala1.setDisponible(sala.isDisponible());
         sala1.setNombre(sala.getNombre());
         sala1.setUbicacion(sala.getUbicacion());
 
         salaRepository.save(sala1);
 
-        return new SalaDTO(sala1.getAforo(), sala1.getUbicacion(), sala1.isDisponible(), sala1.getId(), sala1.getNombre());
+        return new SalaDTO(sala1.getAforo(), sala1.getUbicacion(), sala1.getId(), sala1.getNombre());
     }
 }

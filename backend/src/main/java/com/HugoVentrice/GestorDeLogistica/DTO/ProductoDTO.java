@@ -3,13 +3,11 @@ package com.HugoVentrice.GestorDeLogistica.DTO;
 public class ProductoDTO {
     private long id;
     private String nombre;
-    private boolean disponible;
     private String tipo;
 
-    public ProductoDTO( long id, String nombre, boolean disponible, String tipo){
+    public ProductoDTO( long id, String nombre, String tipo){
         this.id = id;
         this.nombre = nombre;
-        this.disponible = disponible;
         this.tipo = tipo;
     }
 
@@ -27,14 +25,6 @@ public class ProductoDTO {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
     }
 
     public String getTipo() {

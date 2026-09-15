@@ -23,7 +23,7 @@ public class AlquilacionController {
         return alquilacionService.allAlquilaciones();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping
     public AlquilacionDTO saveAlquilacion(@RequestBody CrearAlquilacionDTO alquilacion) {
         return alquilacionService.crearAlquilacion(alquilacion);

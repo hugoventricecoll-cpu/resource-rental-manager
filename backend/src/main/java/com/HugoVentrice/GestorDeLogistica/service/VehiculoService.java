@@ -27,7 +27,7 @@ public class VehiculoService {
         List<VehiculoDTO> lista = new ArrayList<>();
 
         for (Vehiculo v : vehiculoRepository.findAll()){
-            lista.add(new VehiculoDTO(v.getKilometraje(), v.getMatricula(), v.getPlazas(), v.isDisponible(), v.getId(), v.getNombre()));
+            lista.add(new VehiculoDTO(v.getKilometraje(), v.getMatricula(), v.getPlazas(), v.getId(), v.getNombre()));
         }
 
         return lista;
@@ -36,12 +36,12 @@ public class VehiculoService {
     public VehiculoDTO createVehiculo(Vehiculo v){
         vehiculoRepository.save(v);
 
-        return new VehiculoDTO(v.getKilometraje(), v.getMatricula(), v.getPlazas(), v.isDisponible(), v.getId(), v.getNombre());
+        return new VehiculoDTO(v.getKilometraje(), v.getMatricula(), v.getPlazas(), v.getId(), v.getNombre());
     }
 
     public void deleteVehiculo(long id) {
 
-        List<Alquilacion> alquilacionList = alquilacionRepository.findByProducto(vehiculoRepository.findById(id).orElseThrow
+        List<Alquilacion> alquilacionList = alquilacionRepository.findByProductos(vehiculoRepository.findById(id).orElseThrow
                 (()-> new RuntimeException("Error al borrar de la lista: Coche con id '" + id + "' no encontrado en Alquilaciones")));
 
         if (!alquilacionList.isEmpty()) {
@@ -58,10 +58,9 @@ public class VehiculoService {
         vehiculo1.setMatricula(vehiculo.getMatricula());
         vehiculo1.setPlazas(vehiculo.getPlazas());
         vehiculo1.setNombre(vehiculo.getNombre());
-        vehiculo1.setDisponible(vehiculo.isDisponible());
         
         vehiculoRepository.save(vehiculo1);
 
-        return new VehiculoDTO(vehiculo1.getKilometraje(), vehiculo1.getMatricula(), vehiculo1.getPlazas(), vehiculo1.isDisponible(), vehiculo1.getId(), vehiculo1.getNombre());
+        return new VehiculoDTO(vehiculo1.getKilometraje(), vehiculo1.getMatricula(), vehiculo1.getPlazas(), vehiculo1.getId(), vehiculo1.getNombre());
     }
 }

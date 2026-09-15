@@ -11,9 +11,6 @@ public abstract class Producto {
     private long id;
 
     @Column(nullable = false)
-    private boolean disponible;
-
-    @Column(nullable = false)
     private String nombre;
 
     public long getId() {
@@ -22,14 +19,6 @@ public abstract class Producto {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
     }
 
     public String getNombre() {
