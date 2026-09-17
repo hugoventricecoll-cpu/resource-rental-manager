@@ -1,0 +1,78 @@
+.admin-panel {
+	width: 100%;
+	max-width: 1100px;
+	margin: 0 auto;
+}
+
+.admin-panel h1 {
+	margin: 0 0 20px;
+}
+
+.admin-panel-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	gap: 16px;
+}
+
+.admin-section {
+	padding: 20px;
+	background-color: var(--surface);
+	border: 1px solid #ece5d4;
+	border-radius: 12px;
+	box-shadow: 0 4px 14px rgba(43, 38, 32, 0.06);
+}
+
+.admin-section h2 {
+	margin: 0 0 16px;
+	font-size: 1.2rem;
+}
+
+.admin-section form {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.admin-section form div {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.admin-section form p {
+	margin: 4px 0 0;
+	font-weight: 600;
+}
+
+.admin-section input,
+.admin-section select {
+	width: 100%;
+	padding: 10px 12px;
+	border: 1px solid #e3ddd0;
+	border-radius: 8px;
+	font: inherit;
+	background-color: #fff;
+	color: var(--ink);
+}
+
+.admin-section input:focus,
+.admin-section select:focus {
+	outline: 2px solid var(--accent);
+	border-color: var(--accent);
+}
+
+.admin-section button {
+	align-self: flex-start;
+	padding: 10px 16px;
+	border: none;
+	border-radius: 8px;
+	background-color: var(--accent);
+	color: #fff;
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.admin-section button:hover {
+	background-color: var(--accent-dark);
+}
