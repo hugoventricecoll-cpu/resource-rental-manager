@@ -119,18 +119,15 @@ public class AlquilacionService {
 
         List<Producto> productos = new ArrayList<>();
         for (Long productoId : dto.getProductoIds()) {
-            productos.add(productoRepository.findById(productoId)
-                    .orElseThrow(() -> new RuntimeException("Producto no encontrado")));
+            productos.add(productoRepository.findById(productoId).orElseThrow(() -> new RuntimeException("Producto no encontrado")));
         }
 
-        Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        Usuario usuario = usuarioRepository.findById(dto.getUsuarioId()).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         List<Personal> personalList = new ArrayList<>();
         if (dto.getPersonalIds() != null) {
             for (Long personalId : dto.getPersonalIds()) {
-                personalList.add(personalRepository.findById(personalId)
-                        .orElseThrow(() -> new RuntimeException("Personal no encontrado")));
+                personalList.add(personalRepository.findById(personalId).orElseThrow(() -> new RuntimeException("Personal no encontrado")));
             }
         }
 
@@ -154,7 +151,6 @@ public class AlquilacionService {
         alquilacionRepository.findById(id).orElseThrow(() -> new RuntimeException("Alquilación no encontrada"));
 
         alquilacionRepository.deleteById(id);
-
     }
 
     public AlquilacionDTO actualizarAlquilacion(long id, CrearAlquilacionDTO alquilacionUpdated){
@@ -168,8 +164,7 @@ public class AlquilacionService {
 
         List<Producto> productos = new ArrayList<>();
         for (Long productoId : alquilacionUpdated.getProductoIds()) {
-            productos.add(productoRepository.findById(productoId)
-                    .orElseThrow(() -> new RuntimeException("Producto con id '" + productoId + "' no encontrado")));
+            productos.add(productoRepository.findById(productoId).orElseThrow(() -> new RuntimeException("Producto con id '" + productoId + "' no encontrado")));
         }
 
         List<Personal> personal = new ArrayList<>();

@@ -40,8 +40,7 @@ public class PersonalService {
 
     public void deletePersonal(long id) {
 
-        List<Alquilacion> alquilacionConPersonal = alquilacionRepository.findByPersonal
-                (personalRepository.findById(id).orElseThrow(() -> new RuntimeException("No existe")));
+        List<Alquilacion> alquilacionConPersonal = alquilacionRepository.findByPersonal(personalRepository.findById(id).orElseThrow(() -> new RuntimeException("No existe")));
 
         if (!alquilacionConPersonal.isEmpty()){
             throw new RuntimeException("Este empleado esta asignado a Alquilaciones");
