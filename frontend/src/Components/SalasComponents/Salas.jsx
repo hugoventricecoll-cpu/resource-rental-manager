@@ -29,11 +29,14 @@ export default function Salas({ carrito, setCarrito }) {
         setCarrito([...carrito, { kind: "producto", id: sala.id, nombre: sala.nombre }]);
     }
 
+    function handleDeleted(id) {
+        setSalas(prev => prev.filter(s => s.id !== id));
+        setCarrito(prev => prev.filter(i => !(i.kind === "producto" && i.id === id)));
+    }
+
     return (
         <div className="card-grid">
-            {salas.map(s => <SalasCard key={s.id} sala={s}
-                enCarrito={carrito.some(i => i.kind === "producto" && i.id === s.id)}
-                onAdd={() => addAlCarrito(s)} />)}
+            {salas.map(s => <SalasCard key={s.id} id={s.id} sala={s} enCarrito={carrito.some(i => i.kind === "producto" && i.id === s.id)} onAdd={() => addAlCarrito(s)} onDeleted={handleDeleted} />)}
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export default function Alquilacion({carrito, setCarrito}) {
+export default function Alquilacion({ carrito, setCarrito }) {
     const [inicio, setInicio] = useState("");
     const [fin, setFin] = useState("");
     const [mensaje, setMensaje] = useState("");
@@ -9,12 +9,19 @@ export default function Alquilacion({carrito, setCarrito}) {
     const productos = carrito.filter(i => i.kind === "producto");
     const personal = carrito.filter(i => i.kind === "personal");
 
+
+    // Soy consciente: endpoint inseguro, da TODAS las reservas a cualquier persona que tenga el rol "ROLE_USER", solo se filtra en el frontend para mostrar unicamente las del usuario.
+
     async function getMisReservas() {
         const res = await fetch("http://localhost:8091/api/alquilacion", {
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("token")}` },
             method: "GET"
         });
-        if (!res.ok) return;
+
+        if (!res.ok) {
+            setMensaje(`Error ${res.status}: ${await res.text()}`);
+            return;
+        }
         const todas = await res.json();
         const miCorreo = localStorage.getItem("userMail");
         setMisReservas(todas.filter(a => a.usuario?.correo === miCorreo));
@@ -38,21 +45,23 @@ export default function Alquilacion({carrito, setCarrito}) {
             setMensaje("Elige fecha de inicio y de fin.");
             return;
         }
+
         const res = await fetch("http://localhost:8091/api/alquilacion", {
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("token")}` },
             method: "POST",
             body: JSON.stringify({
                 productoIds: productos.map(p => p.id),
                 personalIds: personal.map(p => p.id),
-                usuarioId: Number(localStorage.getItem("userId")),
                 fechaInicio: inicio,
                 fechaFin: fin
             })
         });
+
         if (!res.ok) {
             setMensaje(`Error ${res.status}: ${await res.text()}`);
             return;
         }
+
         setMensaje("Reserva creada ✓");
         setCarrito([]);
         setInicio("");

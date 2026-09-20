@@ -7,6 +7,7 @@ import com.HugoVentrice.GestorDeLogistica.repository.AlquilacionRepository;
 import com.HugoVentrice.GestorDeLogistica.repository.PersonalRepository;
 import com.HugoVentrice.GestorDeLogistica.repository.ProductoRepository;
 import com.HugoVentrice.GestorDeLogistica.repository.UsuarioRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -113,6 +114,8 @@ public class AlquilacionService {
 
         validarFechas(dto.getFechaInicio(), dto.getFechaFin());
 
+
+
         if (dto.getProductoIds() == null || dto.getProductoIds().isEmpty()) {
             throw new RuntimeException("La alquilación debe incluir al menos un producto");
         }
@@ -122,7 +125,9 @@ public class AlquilacionService {
             productos.add(productoRepository.findById(productoId).orElseThrow(() -> new RuntimeException("Producto no encontrado")));
         }
 
-        Usuario usuario = usuarioRepository.findById(dto.getUsuarioId()).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        String correo = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioRepository.findByCorreo(correo);
+        if (usuario == null) throw new RuntimeException("Usuario no encontrado");
 
         List<Personal> personalList = new ArrayList<>();
         if (dto.getPersonalIds() != null) {
@@ -177,7 +182,11 @@ public class AlquilacionService {
         comprobarSolapeProductos(productos, alquilacionUpdated.getFechaInicio(), alquilacionUpdated.getFechaFin(), alquilacion.getId());
         comprobarSolapePersonal(personal, alquilacionUpdated.getFechaInicio(), alquilacionUpdated.getFechaFin(), alquilacion.getId());
 
-        alquilacion.setUsuario(usuarioRepository.findById(alquilacionUpdated.getUsuarioId()).orElseThrow(() -> new RuntimeException("Usuario con id '" + alquilacionUpdated.getUsuarioId() + "' no encontrado")));
+        String correo = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioRepository.findByCorreo(correo);
+        if (usuario == null) throw new RuntimeException("Usuario no encontrado");
+
+        alquilacion.setUsuario(usuario);
         alquilacion.setProductos(productos);
         alquilacion.setPersonal(personal);
         alquilacion.setFechaInicio(alquilacionUpdated.getFechaInicio());

@@ -297,11 +297,38 @@ h3 {
 }
 
 .card {
+  position: relative;
   background-color: var(--surface);
   box-shadow: 0px 12px 8px rgba(43, 38, 32, 0.06);
   color: #171717;
   border-radius: 12px;
   padding: 16px;
+}
+
+.delete-x {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background-color: #e5e0d3;
+  color: #5a5248;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.85rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.delete-x:hover {
+  background-color: #c0392b;
+  color: #fff;
 }
 
 .card p {

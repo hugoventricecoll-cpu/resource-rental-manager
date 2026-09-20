@@ -6,17 +6,16 @@ import java.util.List;
 public class CrearAlquilacionDTO {
 
     private List<Long> productoIds;
-    private Long usuarioId;
     private List<Long> personalIds;
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFin;
 
     public CrearAlquilacionDTO(){
+
     }
 
-    public CrearAlquilacionDTO(List<Long> productoIds, Long usuarioId, List<Long> personalIds, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+    public CrearAlquilacionDTO(List<Long> productoIds, List<Long> personalIds, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
         this.productoIds = productoIds;
-        this.usuarioId = usuarioId;
         this.personalIds = personalIds;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
@@ -28,14 +27,6 @@ public class CrearAlquilacionDTO {
 
     public void setProductoIds(List<Long> productoIds) {
         this.productoIds = productoIds;
-    }
-
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
     }
 
     public List<Long> getPersonalIds() {

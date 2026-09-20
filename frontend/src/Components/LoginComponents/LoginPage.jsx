@@ -33,16 +33,6 @@ export default function LoginPage({ login, setLogin }) {
         localStorage.setItem("token", token)
         localStorage.setItem("userMail", mail)
 
-        const me = await fetch("http://localhost:8091/api/auth/me", {
-            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-            method: "GET"
-        })
-
-        if (me.ok) {
-            localStorage.setItem("userId", await me.text())
-        }
-
-
         navigate("/hub")
     }
 

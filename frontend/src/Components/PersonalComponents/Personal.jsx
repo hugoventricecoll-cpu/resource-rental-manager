@@ -29,11 +29,15 @@ export default function Personal({ carrito, setCarrito }) {
         setCarrito([...carrito, { kind: "personal", id: persona.id, nombre: persona.nombre }]);
     }
 
+    function handleDeleted(id) {
+        setPersonal(prev => prev.filter(p => p.id !== id));
+        setCarrito(prev => prev.filter(i => !(i.kind === "personal" && i.id === id)));
+    }
+
+
     return (
         <div className="card-grid">
-            {personal.map(p => <PersonalCard key={p.id} persona={p}
-                enCarrito={carrito.some(i => i.kind === "personal" && i.id === p.id)}
-                onAdd={() => addAlCarrito(p)} />)}
+            {personal.map(p => <PersonalCard key={p.id} id={p.id} persona={p} enCarrito={carrito.some(i => i.kind === "personal" && i.id === p.id)} Add={() => addAlCarrito(p)} onDeleted={handleDeleted} />)}
         </div>
     )
 }

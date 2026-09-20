@@ -29,9 +29,14 @@ export default function Vehiculos({ carrito, setCarrito }) {
         setCarrito([...carrito, { kind: "producto", id: coche.id, nombre: coche.nombre }]);
     }
 
+    function handleDeleted(id) {
+        setCoches(prev => prev.filter(c => c.id !== id));
+        setCarrito(prev => prev.filter(i => !(i.kind === "producto" && i.id === id)));
+    }
+
     return (
         <div className="card-grid">
-            {coches.map(p => <CarCard key={p.id} nombre={p.nombre} kilometraje={p.kilometraje} matricula={p.matricula} plazas={p.plazas} enCarrito={carrito.some(i => i.kind === "producto" && i.id === p.id)} onAdd={() => addAlCarrito(p)} />)}
+            {coches.map(p => <CarCard key={p.id} id={p.id} nombre={p.nombre} kilometraje={p.kilometraje} matricula={p.matricula} plazas={p.plazas} enCarrito={carrito.some(i => i.kind === "producto" && i.id === p.id)} onAdd={() => addAlCarrito(p)} onDeleted={handleDeleted} />)}
         </div>
     )
 }
