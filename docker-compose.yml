@@ -1,3 +1,6 @@
+# One command for the whole stack (db + backend + frontend):
+#   docker compose up --build
+# Frontend -> http://localhost:5173 | Backend -> http://localhost:8091 | DB -> localhost:5432
 services:
   db:
     image: postgres:16
@@ -15,8 +18,8 @@ services:
       timeout: 5s
       retries: 10
 
-  app:
-    build: .
+  backend:
+    build: ./backend
     ports:
       - "8091:8091"
     environment:
@@ -30,11 +33,11 @@ services:
     restart: unless-stopped
 
   frontend:
-    build: ../frontend
+    build: ./frontend
     ports:
       - "5173:80"
     depends_on:
-      - app
+      - backend
     restart: unless-stopped
 
 volumes:
